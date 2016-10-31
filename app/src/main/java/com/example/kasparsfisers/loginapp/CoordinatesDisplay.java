@@ -65,7 +65,6 @@ public class CoordinatesDisplay extends AppCompatActivity implements LoaderManag
             startActivity(intent);
             finish();
 
-
         }
     }
 
