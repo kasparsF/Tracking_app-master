@@ -56,7 +56,6 @@ public class CoordinatesDisplay extends AppCompatActivity implements LoaderManag
             int LatColumnIndex = cursor.getColumnIndex(LocationEntry.COLUMN_LATITUDE);
             int LonColumnIndex = cursor.getColumnIndex(LocationEntry.COLUMN_LONGITUDE);
 
-
             Double myLatitude = cursor.getDouble(LatColumnIndex);
             Double myLongitude = cursor.getDouble(LonColumnIndex);
             String labelLocation = "Target";

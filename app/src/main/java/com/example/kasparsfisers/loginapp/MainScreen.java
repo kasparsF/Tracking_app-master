@@ -29,6 +29,7 @@ public class MainScreen extends AppCompatActivity implements LoaderManager.Loade
 
     Button mTracking, mLogout;
     SharedPreferencesUtils preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,7 @@ public class MainScreen extends AppCompatActivity implements LoaderManager.Loade
         mTracking = (Button) findViewById(R.id.btnLoc);
         mLogout = (Button) findViewById(R.id.btnLogout);
         preferences = new SharedPreferencesUtils(this);
-        if(LocationService.isInstanceCreated()){
+        if (LocationService.isInstanceCreated()) {
             mTracking.setText(R.string.stop);
         } else {
             mTracking.setText(R.string.start);
@@ -52,8 +53,7 @@ public class MainScreen extends AppCompatActivity implements LoaderManager.Loade
                     ActivityCompat.requestPermissions(MainScreen.this,
                             new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                             1);
-                }
-                else if(!LocationService.isInstanceCreated()){
+                } else if (!LocationService.isInstanceCreated()) {
 
                     startService(new Intent(getBaseContext(), LocationService.class));
                     mTracking.setText(R.string.stop);
@@ -103,7 +103,7 @@ public class MainScreen extends AppCompatActivity implements LoaderManager.Loade
 
         String[] projection = {
                 LocationEntry._ID,
-                LocationEntry.COLUMN_LOCNAME };
+                LocationEntry.COLUMN_LOCNAME};
 
         //  ContentProviders query method on a background thread
         return new CursorLoader(this,
