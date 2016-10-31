@@ -55,11 +55,6 @@ public class CoordinatesDisplay extends AppCompatActivity implements LoaderManag
 
             int LatColumnIndex = cursor.getColumnIndex(LocationEntry.COLUMN_LATITUDE);
             int LonColumnIndex = cursor.getColumnIndex(LocationEntry.COLUMN_LONGITUDE);
-            int AccColumnIndex = cursor.getColumnIndex(LocationEntry.COLUMN_ACCURACY);
-
-            String Lat = cursor.getString(LatColumnIndex);
-            String Lon = cursor.getString(LonColumnIndex);
-            String Acc = cursor.getString(AccColumnIndex);
 
 
             Double myLatitude = cursor.getDouble(LatColumnIndex);
@@ -76,7 +71,7 @@ public class CoordinatesDisplay extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+    //    Hi! i have a question about app. If I click on location name, can i open google maps to display marker of location coordinates?
     }
 }
 
