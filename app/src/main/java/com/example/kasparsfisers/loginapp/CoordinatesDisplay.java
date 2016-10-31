@@ -14,18 +14,11 @@ import com.example.kasparsfisers.loginapp.data.LocationContract.LocationEntry;
 
 public class CoordinatesDisplay extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int EXISTING_COORDINATES_LOADER = 0;
-
-    private TextView mLatText;
-    private TextView mLonText;
-    private TextView mAccText;
-
     private Uri mCurrentCoordinatesUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coordinates_display);
-
 
         Intent intent = getIntent();
 
@@ -33,9 +26,6 @@ public class CoordinatesDisplay extends AppCompatActivity implements LoaderManag
 
         getLoaderManager().initLoader(EXISTING_COORDINATES_LOADER, null, this);
 
-        mLatText = (TextView)findViewById(R.id.textViewLat);
-        mLonText = (TextView)findViewById(R.id.textViewLon);
-        mAccText = (TextView)findViewById(R.id.textViewAcc);
 
     }
 
@@ -71,18 +61,21 @@ public class CoordinatesDisplay extends AppCompatActivity implements LoaderManag
             String Lon = cursor.getString(LonColumnIndex);
             String Acc = cursor.getString(AccColumnIndex);
 
-            mLatText.setText(Lat);
-            mLonText.setText(Lon);
-            mAccText.setText(Acc);
+
+            Double myLatitude = cursor.getDouble(LatColumnIndex);
+            Double myLongitude = cursor.getDouble(LonColumnIndex);
+            String labelLocation = "Target";
+
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + myLatitude  + ">,<" + myLongitude + ">?q=<" + myLatitude  + ">,<" + myLongitude + ">(" + labelLocation + ")"));
+            startActivity(intent);
+            finish();
+
 
         }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mLatText.setText("");
-        mLonText.setText("");
-        mAccText.setText("");
 
     }
 }

@@ -86,6 +86,15 @@ public class MainScreen extends AppCompatActivity implements LoaderManager.Loade
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
+
+
+
+
+
+
+
+
                 Intent intent = new Intent(MainScreen.this, CoordinatesDisplay.class);
 
                 Uri currentCoordinatesUri = ContentUris.withAppendedId(LocationEntry.CONTENT_URI, id);
