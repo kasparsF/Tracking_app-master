@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">TrackingApp</string>
+    <string name="displayInfo">display</string>
+    <string name="denied">Wrong data provided</string>
+    <string name="preffs">MYPREFS</string>
+    <string name="registered">Successfully registered!</string>
+    <string name="registerError">Something went wrong!</string>
+    <string name="stop">Stop Tracking</string>
+    <string name="start">Start Tracking</string>
+    <string name="serviceStart">Service Started</string>
+    <string name="serviceStop">Service Stopped</string>
+    <string name="userData">data</string>
+    <string name="userInfo">info</string>
+    <string name="validUsername">Please Enter valid Username!</string>
+    <string name="validName">Please Enter name!</string>
+    <string name="validEmail">Please Enter valid Email Address!!</string>
+    <string name="validPass">Password needs to contain: number, symbol, capital letter and min length of 8!!</string>
+    <string name="matchPass">Passwords dont match!!</string>
+    <string name="session">session</string>
+    <string name="logout">Logout</string>
+</resources>
