@@ -71,7 +71,7 @@ public class CoordinatesDisplay extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-    //    Hi! i have a question about app. If I click on location name, can i open google maps to display marker of location coordinates?
+
     }
 }
 
