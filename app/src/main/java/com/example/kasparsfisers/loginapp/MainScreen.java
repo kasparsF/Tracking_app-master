@@ -19,12 +19,12 @@ import android.widget.ListView;
 import com.example.kasparsfisers.loginapp.data.LocationContract;
 import com.example.kasparsfisers.loginapp.data.LocationContract.LocationEntry;
 
-public class Display extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainScreen extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the pet data loader */
-    private static final int PET_LOADER = 0;
+    // Identifier for coordinate data loader
+    private static final int COORDINATE_LOADER = 0;
 
-    /** Adapter for the ListView */
+
     LocationCursorAdapter mCursorAdapter;
 
     Button mTracking, mLogout;
@@ -49,7 +49,7 @@ public class Display extends AppCompatActivity implements LoaderManager.LoaderCa
                 if (ActivityCompat.checkSelfPermission(getBaseContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(getBaseContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                    ActivityCompat.requestPermissions(Display.this,
+                    ActivityCompat.requestPermissions(MainScreen.this,
                             new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                             1);
                 }
@@ -70,19 +70,14 @@ public class Display extends AppCompatActivity implements LoaderManager.LoaderCa
             @Override
             public void onClick(View v) {
                 preferences.sessionSetLoggedIn(false);
-                startActivity(new Intent(Display.this, MainActivity.class));
+                startActivity(new Intent(MainScreen.this, LoginActivity.class));
                 finish();
             }
         });
-        // Find the ListView which will be populated with the pet data
+
         ListView coordinateListView = (ListView) findViewById(R.id.list);
 
-        // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
-       // View emptyView = findViewById(R.id.empty_view);
-     //   petListView.setEmptyView(emptyView);
 
-        // Setup an Adapter to create a list item for each row of pet data in the Cursor.
-        // There is no pet data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new LocationCursorAdapter(this, null);
         coordinateListView.setAdapter(mCursorAdapter);
 
@@ -91,7 +86,7 @@ public class Display extends AppCompatActivity implements LoaderManager.LoaderCa
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(Display.this, CoordinatesDisplay.class);
+                Intent intent = new Intent(MainScreen.this, CoordinatesDisplay.class);
 
                 Uri currentCoordinatesUri = ContentUris.withAppendedId(LocationEntry.CONTENT_URI, id);
                 intent.setData(currentCoordinatesUri);
@@ -100,37 +95,34 @@ public class Display extends AppCompatActivity implements LoaderManager.LoaderCa
         });
 
 
-
-
-        // Kick off the loader
-        getLoaderManager().initLoader(PET_LOADER, null, this);
+        getLoaderManager().initLoader(COORDINATE_LOADER, null, this);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        // Define a projection that specifies the columns from the table we care about.
+
         String[] projection = {
                 LocationEntry._ID,
                 LocationEntry.COLUMN_LOCNAME };
 
-        // This loader will execute the ContentProvider's query method on a background thread
-        return new CursorLoader(this,   // Parent activity context
-                LocationEntry.CONTENT_URI,   // Provider content URI to query
-                projection,             // Columns to include in the resulting Cursor
-                null,                   // No selection clause
-                null,                   // No selection arguments
+        //  ContentProviders query method on a background thread
+        return new CursorLoader(this,
+                LocationEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
                 LocationContract.LocationEntry._ID + " DESC");
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Update {@link PetCursorAdapter} with this new cursor containing updated pet data
+        // Update cursor containing updated coordinate data
         mCursorAdapter.swapCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        // Callback called when the data needs to be deleted
+        // called when the data needs to be deleted
         mCursorAdapter.swapCursor(null);
     }
 }

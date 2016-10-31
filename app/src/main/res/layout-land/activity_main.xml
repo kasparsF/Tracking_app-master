@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="25dp"
-    tools:context="com.example.kasparsfisers.loginapp.MainActivity"
+    tools:context="com.example.kasparsfisers.loginapp.LoginActivity"
     android:orientation="horizontal"
     android:background="@drawable/back1land">
 

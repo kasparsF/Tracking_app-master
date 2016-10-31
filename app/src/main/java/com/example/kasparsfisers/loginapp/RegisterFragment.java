@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AlertDFragment extends DialogFragment {
+public class RegisterFragment extends DialogFragment {
     EditText username, name, email, password, password2;
     Button btnRegister;
     String newUser, newEmail, newName, newPass, newPass2;

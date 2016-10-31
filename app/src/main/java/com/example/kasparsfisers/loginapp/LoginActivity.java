@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     EditText logUser, logPass;
     Button login, register;
     ImageView imgLoading;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Check if user is logged in
         if(preferences.sessionLoggedIn()){
-            startActivity(new Intent(MainActivity.this, Display.class));
+            startActivity(new Intent(LoginActivity.this, MainScreen.class));
             finish();
         }
     }
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     String userDetails = preferences.login(user,pass);
                     if (userDetails.equals("")) {
-                        Toast.makeText(MainActivity.this, R.string.denied, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, R.string.denied, Toast.LENGTH_SHORT).show();
                         login.setVisibility(View.VISIBLE);
                         register.setVisibility(View.VISIBLE);
                         logUser.setVisibility(View.VISIBLE);
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     } else {
                         preferences.sessionSetLoggedIn(true);
-                        startActivity(new Intent(MainActivity.this, Display.class));
+                        startActivity(new Intent(LoginActivity.this, MainScreen.class));
                         finish();
                         login.setVisibility(View.VISIBLE);
                         register.setVisibility(View.VISIBLE);
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (v.getId() == R.id.btnLoginReg) {
-            AlertDFragment alertdFragment = new AlertDFragment();
+            RegisterFragment alertdFragment = new RegisterFragment();
             // Show Alert DialogFragment
             alertdFragment.show(fm, "");
         }

@@ -8,7 +8,7 @@
     android:background="@drawable/back1"
     android:orientation="vertical"
     android:padding="25dp"
-    tools:context="com.example.kasparsfisers.loginapp.MainActivity">
+    tools:context="com.example.kasparsfisers.loginapp.LoginActivity">
 
     <ImageView
         android:id="@+id/imageRotate"
