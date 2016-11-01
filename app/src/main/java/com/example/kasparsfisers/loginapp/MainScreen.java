@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.kasparsfisers.loginapp.data.LocationContract;
 import com.example.kasparsfisers.loginapp.data.LocationContract.LocationEntry;
@@ -23,7 +24,7 @@ public class MainScreen extends AppCompatActivity implements LoaderManager.Loade
 
     // Identifier for coordinate data loader
     private static final int COORDINATE_LOADER = 0;
-
+    private boolean permissionGranted = true;
 
     LocationCursorAdapter mCursorAdapter;
 
@@ -47,21 +48,14 @@ public class MainScreen extends AppCompatActivity implements LoaderManager.Loade
             @Override
             public void onClick(View v) {
 
-                if (ActivityCompat.checkSelfPermission(getBaseContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(getBaseContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                    ActivityCompat.requestPermissions(MainScreen.this,
-                            new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                            1);
-                } else if (!LocationService.isInstanceCreated()) {
-
-                    startService(new Intent(getBaseContext(), LocationService.class));
-                    mTracking.setText(R.string.stop);
-
+                if (checkPermissions()) {
+                    serviceEnable();
                 } else {
-                    stopService(new Intent(getBaseContext(), LocationService.class));
-                    mTracking.setText(R.string.start);
+                    askPermissions();
                 }
+
+
             }
         });
 
@@ -125,4 +119,60 @@ public class MainScreen extends AppCompatActivity implements LoaderManager.Loade
         // called when the data needs to be deleted
         mCursorAdapter.swapCursor(null);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    serviceEnable();
+
+                } else {
+                    Toast.makeText(this, R.string.no_permissions, Toast.LENGTH_SHORT).show();
+
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    private boolean checkPermissions() {
+
+        if (ActivityCompat.checkSelfPermission(getBaseContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getBaseContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return false;
+        }
+        return true;
+
+    }
+
+    private void askPermissions() {
+        ActivityCompat.requestPermissions(MainScreen.this,
+                new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                1);
+    }
+
+    private void serviceEnable() {
+
+        if (!LocationService.isInstanceCreated()) {
+
+            startService(new Intent(getBaseContext(), LocationService.class));
+            mTracking.setText(R.string.stop);
+
+        } else {
+            stopService(new Intent(getBaseContext(), LocationService.class));
+            mTracking.setText(R.string.start);
+        }
+
+    }
+
+
 }

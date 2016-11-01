@@ -48,10 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate);
             imgLoading.startAnimation(animation);
 
-            login.setVisibility(View.GONE);
-            register.setVisibility(View.GONE);
-            logUser.setVisibility(View.GONE);
-            logPass.setVisibility(View.GONE);
+            hideViews();
 
             Handler handler = new Handler(getMainLooper());
             handler.postDelayed(new Runnable() {
@@ -63,19 +60,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String userDetails = preferences.login(user,pass);
                     if (userDetails.equals("")) {
                         Toast.makeText(LoginActivity.this, R.string.denied, Toast.LENGTH_SHORT).show();
-                        login.setVisibility(View.VISIBLE);
-                        register.setVisibility(View.VISIBLE);
-                        logUser.setVisibility(View.VISIBLE);
-                        logPass.setVisibility(View.VISIBLE);
+                        showViews();
 
                     } else {
                         preferences.sessionSetLoggedIn(true);
                         startActivity(new Intent(LoginActivity.this, MainScreen.class));
                         finish();
-                        login.setVisibility(View.VISIBLE);
-                        register.setVisibility(View.VISIBLE);
-                        logUser.setVisibility(View.VISIBLE);
-                        logPass.setVisibility(View.VISIBLE);
+                        showViews();
                     }
                 }
             }, 3000);
@@ -88,4 +79,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             alertdFragment.show(fm, "");
         }
     }
+    private void hideViews(){
+
+        login.setVisibility(View.GONE);
+        register.setVisibility(View.GONE);
+        logUser.setVisibility(View.GONE);
+        logPass.setVisibility(View.GONE);
+    }
+
+    private void showViews(){
+
+        login.setVisibility(View.VISIBLE);
+        register.setVisibility(View.VISIBLE);
+        logUser.setVisibility(View.VISIBLE);
+        logPass.setVisibility(View.VISIBLE);
+    }
+
 }

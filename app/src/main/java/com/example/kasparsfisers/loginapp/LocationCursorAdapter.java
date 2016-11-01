@@ -16,11 +16,24 @@ public class LocationCursorAdapter extends CursorAdapter {
         super(context, cursor, 0);
     }
 
+    private  class ViewHolder {
+        TextView placeName;
+
+    }
+
+//    NewView – Called when the ListView requires a new view to display.
+//    The CursorAdapter will take care of recycling views
+//    (unlike the GetView method on regular Adapters).
+
+//    BindView – Given a view, update it to display the data in the provided cursor.
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        View rowView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
+
         ViewHolder holder = new ViewHolder();
+
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View rowView = inflater.inflate(R.layout.list_item, parent, false);
         holder.placeName = (TextView) rowView.findViewById(R.id.placeName);
         rowView.setTag(holder);
         return rowView;
@@ -28,20 +41,16 @@ public class LocationCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        // Find views
+
         ViewHolder holder = (ViewHolder) view.getTag();
 
         int nameIndex = cursor.getColumnIndex(LocationContract.LocationEntry.COLUMN_LOCNAME);
 
         String name = cursor.getString(nameIndex);
 
-
         holder.placeName.setText(name);
 
     }
 
-    private  class ViewHolder {
-        TextView placeName;
 
-    }
 }

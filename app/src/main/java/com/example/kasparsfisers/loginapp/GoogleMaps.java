@@ -47,7 +47,8 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-
+        // Sets the map type to be "hybrid"
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
     }
 
     @Override
@@ -71,6 +72,17 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
         if (cursor == null || cursor.getCount() < 1 || mMap == null) {
             return;
         }
+        locateCoordinates(cursor);
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
+
+
+    private void locateCoordinates(Cursor cursor){
 
         if (cursor.moveToFirst()) {
 
@@ -81,24 +93,18 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
             Double myLongitude = cursor.getDouble(LonColumnIndex);
             String myPlaceName = cursor.getString(NameColumnIndex);
 
-
-
             if (myPlaceName.contains(LOCATION_SEPARATOR)) {
                 String[] parts = myPlaceName.split(LOCATION_SEPARATOR);
-                 mapLocation = parts[0];
+                mapLocation = parts[0];
             } else {
                 mapLocation = "Unknown";
             }
 
             LatLng target = new LatLng(myLatitude, myLongitude);
             mMap.addMarker(new MarkerOptions().position(target).title(mapLocation));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(target));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(target,13));
 
         }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 }

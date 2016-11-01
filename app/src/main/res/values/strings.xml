@@ -19,4 +19,6 @@
     <string name="session">session</string>
     <string name="logout">Logout</string>
     <string name="title_activity_google_maps">Map</string>
+    <string name="no_permissions">Cant use tracking without location permission</string>
+
 </resources>
