@@ -114,6 +114,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
             return;
         }
+
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                 mLocationRequest, this);
     }
