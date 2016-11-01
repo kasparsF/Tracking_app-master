@@ -18,4 +18,5 @@
     <string name="matchPass">Passwords dont match!!</string>
     <string name="session">session</string>
     <string name="logout">Logout</string>
+    <string name="title_activity_google_maps">Map</string>
 </resources>
