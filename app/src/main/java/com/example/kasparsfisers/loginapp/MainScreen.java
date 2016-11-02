@@ -50,7 +50,7 @@ public class MainScreen extends AppCompatActivity implements LoaderManager.Loade
 
 
                 if (checkPermissions()) {
-                    enableService();
+                    serviceEnable();
                 } else {
                     askPermissions();
                 }
@@ -129,7 +129,7 @@ public class MainScreen extends AppCompatActivity implements LoaderManager.Loade
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    enableService();
+                    serviceEnable();
 
                 } else {
                     Toast.makeText(this, R.string.no_permissions, Toast.LENGTH_SHORT).show();
@@ -159,7 +159,7 @@ public class MainScreen extends AppCompatActivity implements LoaderManager.Loade
                 1);
     }
 
-    private void enableService() {
+    private void serviceEnable() {
 
         if (!LocationService.isInstanceCreated()) {
 

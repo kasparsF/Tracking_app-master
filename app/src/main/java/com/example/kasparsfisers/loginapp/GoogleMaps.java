@@ -48,7 +48,7 @@ public class GoogleMaps extends FragmentActivity implements OnMapReadyCallback, 
         mMap = googleMap;
 
         // Sets the map type to be "hybrid"
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
     }
 
     @Override
